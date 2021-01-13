@@ -113,11 +113,11 @@ def prepareData(data, hasSNR=True):
 	data = pd.concat(data);
 	data = data.sample(frac=1).reset_index(drop=True) #shuffling for randomization
 
-	X = result.iloc[:, :512].values
-	y = result.iloc[:, 512].values
+	X = data.iloc[:, :512].values
+	y = data.iloc[:, 512].values
 	if hasSNR:
-		snr = result.iloc[:,513].values
-		y = result.iloc[:, 512:].values
+		snr = data.iloc[:,513].values
+		y = data.iloc[:, 512:].values
 
 	print('\n Dimensions of input features, X is: '+ str(X.shape))
 	print('\n Dimensions of output labels, y is: '+ str(y.shape))
