@@ -15,6 +15,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 import tqdm
+from ModelBlocks import ConcatConv1d, ODENet, ODEfunc, ResBlock, count_parameters, norm, Flatten
 
 def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
     """
