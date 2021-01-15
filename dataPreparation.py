@@ -144,17 +144,16 @@ def prepareData(data, hasSNR=True, split=0.2):
 		return X, y
 
 
-def convertToTensor(X_train, y_train, X_test, y_test, train_bs=500, test_bs=1000):
+def convertToTensor(X_train, y_train, X_test, y_test, train_bs=500, test_bs=1000, gpu = True):
 
-	X_train, y_train, X_test, y_test = map(
-    torch.from_numpy, 
-    (X_train, y_train, X_test, y_test))
+	X_train, y_train, X_test, y_test = map( torch.from_numpy,(X_train, y_train, X_test, y_test))
 
     #shifting to GPU
-	X_train = X_train.to(device='cuda')
-	y_train = y_train.to(device='cuda')
-	X_test = X_test.to(device='cuda')
-	y_test = y_test.to(device='cuda')
+	if gpu:
+		X_train = X_train.to(device='cuda')
+		y_train = y_train.to(device='cuda')
+		X_test = X_test.to(device='cuda')
+		y_test = y_test.to(device='cuda')
 
 	# Convert to 3D tensor
 	X_train = X_train.unsqueeze(1)
