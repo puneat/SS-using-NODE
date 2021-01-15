@@ -25,10 +25,10 @@ def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
         nn.Conv1d(1, dim, 3, 1),
         norm(dim),
         nn.ReLU(inplace=True),
-        nn.Conv1d(dim, dim, 3, 2, 1),
+        nn.Conv1d(dim, dim, 4, 2, 1),
         norm(dim),
         nn.ReLU(inplace=True),
-        nn.Conv1d(dim, dim, 3, 2, 1)
+        nn.Conv1d(dim, dim, 4, 2, 1)
     ]
 
     feature_layers = [ODENet(ODEfunc(dim), **kwargs)] if is_odenet else [ResBlock(dim) for _ in range(6)]
@@ -37,7 +37,7 @@ def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
 
     model = nn.Sequential(*downsampling_layers, *feature_layers, *fc_layers)
 
-    opt = optim.Adam(model.parameters()) if adam else optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
+    opt = optim.Adam(model.parameters(), amsgrad=True) if adam else optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
 
     return model, opt
 
