@@ -130,7 +130,7 @@ def prepareData(data, hasSNR=True, split=0.2):
 
 	print('\n Dimensions of input features, X is: '+ str(X.shape))
 	print('\n Dimensions of output labels, y is: '+ str(y.shape))
-	if hasSNr:
+	if hasSNR:
 		print('\n Unique modulations: ' + str(np.unique(y[:,0], return_counts=True)))
 	elif not hasSNR:
 		print('\n Unique modulations: ' + str(np.unique(y, return_counts=True)))
