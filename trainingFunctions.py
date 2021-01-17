@@ -28,7 +28,7 @@ def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
         nn.Conv1d(dim, dim, 4, 2, 1), 
         norm(dim),
         nn.ReLU(inplace=True),
-        nn.Conv1d(dim, dim, 4, 2, 1)
+        nn.Conv1d(dim, dim, 4, 2, 1),
         norm(dim),
         nn.ReLU(inplace=True),
         nn.Conv1d(dim, dim, 4, 2, 1)
