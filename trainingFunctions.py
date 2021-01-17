@@ -17,12 +17,12 @@ from torch.utils.data import TensorDataset, DataLoader
 import tqdm
 from ModelBlocks import ConcatConv1d, ODENet, ODEfunc, ResBlock, count_parameters, norm, Flatten
 
-def get_model(is_odenet=True, dim=32, adam=False, **kwargs):
+def get_model(is_odenet=True, dim=1, adam=False, **kwargs):
     """
     Initialize ResNet or ODENet with optimizer.
     """
     downsampling_layers = [
-        nn.Conv1d(1, dim, 1, 1) 
+#         nn.Conv1d(1, dim, 1, 1) 
 #         norm(dim),
 #         nn.ReLU(inplace=True),
 #         nn.Conv1d(dim, dim, 4, 2, 1), 
