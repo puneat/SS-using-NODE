@@ -52,7 +52,7 @@ def norm(dim):
     """
     Group normalization to improve model accuracy and training speed.
     """
-    return nn.GroupNorm(min(32, dim), dim)
+    return nn.GroupNorm(min(1, dim), dim)
 
 class ODEfunc(nn.Module):
     """
