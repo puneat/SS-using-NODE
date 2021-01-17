@@ -22,16 +22,16 @@ def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
     Initialize ResNet or ODENet with optimizer.
     """
     downsampling_layers = [
-        nn.Conv1d(1, dim, 5, 1), 
+        nn.Conv1d(1, dim, 3, 1), 
         norm(dim),
         nn.ReLU(inplace=True),
-        nn.Conv1d(dim, dim, 5, 2, 1), 
+        nn.Conv1d(dim, dim, 3, 2, 1), 
         norm(dim),
         nn.ReLU(inplace=True),
-        nn.Conv1d(dim, dim, 5, 2, 1),
-        norm(dim),
-        nn.ReLU(inplace=True),
-        nn.Conv1d(dim, dim, 3, 2, 1)
+        nn.Conv1d(dim, dim, 3, 2, 1),
+#         norm(dim),
+#         nn.ReLU(inplace=True),
+#         nn.Conv1d(dim, dim, 3, 2, 1)
     ]
 
     feature_layers = [ODENet(ODEfunc(dim), **kwargs)] if is_odenet else [ResBlock(dim) for _ in range(6)]
