@@ -22,7 +22,7 @@ def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
     Initialize ResNet or ODENet with optimizer.
     """
     downsampling_layers = [
-        nn.Conv1d(1, dim, 3, 1), 
+        nn.Conv1d(1, dim, 5, 1), 
         norm(dim),
         nn.ReLU(inplace=True),
         nn.MaxPool1d(2),
