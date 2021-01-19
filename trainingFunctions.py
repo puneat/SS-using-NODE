@@ -38,7 +38,7 @@ def get_model(is_odenet=True, dim=64, adam=False, **kwargs):
     feature_layers = [ODENet(ODEfunc(dim), **kwargs)] if is_odenet else [ResBlock(dim) for _ in range(6)]
 #     norm(dim), nn.ReLU(inplace=True), nn.AdaptiveAvgPool1d(1), 
 
-    fc_layers = [norm(dim), nn.ReLU(inplace=True), nn.AdaptiveAvgPool1d(1), Flatten(), nn.Linear(dim,16), nn.Linear(16,2)]
+    fc_layers = [norm(dim), nn.ReLU(inplace=True), nn.AdaptiveAvgPool1d(1), Flatten(), nn.Linear(dim,16), nn.ReLU(inplace=True), nn.Linear(16,2)]
 
     model = nn.Sequential(*downsampling_layers, *feature_layers, *fc_layers)
 
