@@ -15,7 +15,8 @@ from torch.utils.data import TensorDataset, DataLoader
 import tqdm
 from ModelBlocks import ConcatConv1d, ODENet, ODEfunc, count_parameters, norm, Flatten
 
-def checkAccuracy (model, test_dataloader, return_predictions=False):
+def checkAccuracy (model, test_dataloader, return_predictions=False, return_prob = None):
+	assert return_prob in [None,1,0], 'Choose from None, 1 or 0
 
 	model.eval()
 	predicted=[]
@@ -27,13 +28,17 @@ def checkAccuracy (model, test_dataloader, return_predictions=False):
 			logits = logits.cpu()
 			inputs=inputs.cpu()
 			targets=targets.cpu()
-		preds = torch.argmax(F.softmax(logits, dim=1), axis=1).numpy()
+		if return_prob==None:
+			preds = torch.argmax(F.softmax(logits, dim=1), axis=1).numpy()
+		elif return_prob != None:
+			preds = F.softmax(logits, dim=1).numpy()
+			preds = preds[:,int(return_prob)]
 		targets = targets.numpy()
 		actuals = np.concatenate((actuals,targets))
 		predicted = np.concatenate((predicted,preds))
-
-	acc = (predicted == actuals).mean()
-	print(f"\n ODENet accuracy: {acc*100}")
+	if return_prob==None:
+		acc = (predicted == actuals).mean()
+		print(f"\n ODENet accuracy: {acc*100}")
 	print(f"\n  Number of tunable parameters: {count_parameters(model)}")
 
 	if return_predictions:
