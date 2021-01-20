@@ -16,7 +16,7 @@ import tqdm
 from ModelBlocks import ConcatConv1d, ODENet, ODEfunc, count_parameters, norm, Flatten
 
 def checkAccuracy (model, test_dataloader, return_predictions=False, return_prob = None):
-	assert return_prob in [None,1,0], 'Choose from None, 1 or 0
+	assert return_prob in [None,1,0], 'Choose from None, 1 or 0'
 
 	model.eval()
 	predicted=[]
